@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/alaska/RiderProjects/BllazorFirstApp/BllazorFirstApp/BllazorFirstApp.csproj",
-      "projectName": "BllazorFirstApp",
-      "projectPath": "/home/alaska/RiderProjects/BllazorFirstApp/BllazorFirstApp/BllazorFirstApp.csproj",
+      "projectUniqueName": "/home/alaska/RiderProjects/BllazorFirstApp/TODOApp/TODOApp.csproj",
+      "projectName": "TODOApp",
+      "projectPath": "/home/alaska/RiderProjects/BllazorFirstApp/TODOApp/TODOApp.csproj",
       "packagesPath": "/home/alaska/.nuget/packages/",
-      "outputPath": "/home/alaska/RiderProjects/BllazorFirstApp/BllazorFirstApp/obj/",
+      "outputPath": "/home/alaska/RiderProjects/BllazorFirstApp/TODOApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/alaska/.nuget/NuGet/NuGet.Config"

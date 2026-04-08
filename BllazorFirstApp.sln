@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BllazorFirstApp", "BllazorFirstApp\BllazorFirstApp.csproj", "{B8CFEFA9-1D78-4916-A061-907BD90B1247}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TODOApp", "TODOApp\TODOApp.csproj", "{B8CFEFA9-1D78-4916-A061-907BD90B1247}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
