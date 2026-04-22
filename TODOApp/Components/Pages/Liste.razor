@@ -1,0 +1,78 @@
+
+
+
+<input placeholder=@placeholdertext
+       @bind="neuTaskName"
+       @bind:event="oninput"
+       @onkeydown="handelkey" />
+        
+<button   @onclick="addTask"  >weitere aufgabe eingeben</button>
+    
+<table>
+    <tr>
+        <th>Aufgaben / TODOs</th>   
+        <th>Status</th>
+    </tr>
+    @foreach(var task in tasks)
+    {
+        <tr>
+            <td>@task.name</td>
+            <td><input type="checkbox"
+                       checked="@task.isDone"
+                       @onchange="(e => OnTaskChecked(task , e))" 
+                       /></td>
+        </tr>
+    }
+</table>
+
+@code {
+    public String errorMessage { get; set; }
+    public String neuTaskName { get; set; }
+    public String placeholdertext = "weitere Aufgabe eingeben"; 
+
+
+    public class Task
+    {
+        public String name { get; set; }
+        public bool isDone { get; set; }
+    }
+
+    public List<Task> tasks = new List<Task>();
+
+
+    public void addTask()
+    {
+        if (String.IsNullOrWhiteSpace(neuTaskName))
+        {
+            placeholdertext = "errorMessage";
+            return;
+        }
+
+        tasks.Add(new Task { name = neuTaskName, isDone = false });
+        placeholdertext = "weitere Aufgabe eingeben";
+        neuTaskName = "";
+        errorMessage = "";
+    }
+
+
+    public async System.Threading.Tasks.Task OnTaskChecked(Task task, ChangeEventArgs e)
+    {
+        bool isChecked = (bool)e.Value!;
+        task.isDone = isChecked;
+
+        if (task.isDone)
+        {
+            await System.Threading.Tasks.Task.Delay(1000);
+            tasks.Remove(task);
+        }
+    }
+
+    public void handelkey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            addTask();
+        }
+    }
+
+}
