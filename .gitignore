@@ -1,4 +1,22 @@
+# Build-Ordner
+bin/
+obj/
 
-.idea 
-.vs
+# Visual Studio / Rider / JetBrains
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
+# Dateien von Visual Studio / JetBrains
+_ReSharper*/
+*.DotSettings.user
+
+# Logs
+*.log
+
+# OS-Dateien
+.DS_Store
+Thumbs.db
