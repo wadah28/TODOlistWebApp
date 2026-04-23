@@ -4,26 +4,68 @@
 <input placeholder=@placeholdertext
        @bind="neuTaskName"
        @bind:event="oninput"
-       @onkeydown="handelkey" />
+       @onkeydown="handelEnterkey" />
         
 <button   @onclick="addTask"  >weitere aufgabe eingeben</button>
     
 <table>
-    <tr>
-        <th>Aufgaben / TODOs</th>   
-        <th>Status</th>
+    <tr id="top-row">
+        <th class="einleitung">Aufgaben / TODOs</th>   
+        <th class="einleitung">Status</th>
     </tr>
     @foreach(var task in tasks)
     {
-        <tr>
+        <tr id="task-row">
             <td>@task.name</td>
             <td><input type="checkbox"
                        checked="@task.isDone"
                        @onchange="(e => OnTaskChecked(task , e))" 
-                       /></td>
+                /></td>
         </tr>
     }
 </table>
+<style> 
+/*table{
+    width: 33%;
+    margin: 2px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+#top-row{
+    border: 1px solid black;
+}
+.einleitung{
+    text-align: center;
+}*/
+table {
+    width: 33%;
+    border-collapse: collapse;
+    margin: 2px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+th {
+    text-align: center;
+}
+
+td:first-child {
+    text-align: left;
+    width: 80%;
+}
+
+td:last-child,
+th:last-child {
+    text-align: center;
+    width: 20%;
+}
+
+
+
+</style>
 
 
 
@@ -69,7 +111,7 @@
         }
     }
 
-    public void handelkey(KeyboardEventArgs e)
+    public void handelEnterkey(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {

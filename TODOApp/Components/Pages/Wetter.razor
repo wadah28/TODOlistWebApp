@@ -1,0 +1,22 @@
+@inject HttpClient Http
+
+<div>
+    <button @onclick="loadtext">
+        Lade Wetter runter!
+    </button>
+    <p>
+        das wetter heute ist ... :@wetter
+    </p>
+</div>
+
+
+@code
+{
+    String wetter = "noch nicht geladen ";
+
+    async Task loadtext()
+    {
+        await Task.Delay(1000);
+        wetter = "sonnig";
+    }
+}
