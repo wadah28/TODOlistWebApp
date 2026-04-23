@@ -1,5 +1,5 @@
 @inject HttpClient Http
-
+@using System.Net.Http.Json
 
 <div class="seite">
     <div class="todo-bereich">
@@ -26,6 +26,9 @@
                     </td>
                 </tr>
             }
+            <tfoot>
+                <td>fertige aufgaben = @doneTasks noch zu bearbeiten @todoTasks</td>
+            </tfoot>
         </table>
     </div>
 
@@ -81,37 +84,37 @@ th:last-child {
 </style>
 
 
+
 @code {
-    public String errorMessage { get; set; }
-    public String neuTaskName { get; set; }
-    public String placeholdertext = "weitere Aufgabe eingeben"; 
+    public string errorMessage { get; set; } = "";
+    public string neuTaskName { get; set; } = "";
+    public string placeholdertext = "weitere Aufgabe eingeben";
+    public int doneTasks , todoTasks= 0;
 
-
-    public class Task
+    public class TodoItem
     {
-        public String name { get; set; } ="";
+        public string name { get; set; } = "";
         public bool isDone { get; set; }
     }
 
-    public List<Task> tasks = new List<Task>();
-
+    public List<TodoItem> tasks = new();
 
     public void addTask()
     {
-        if (String.IsNullOrWhiteSpace(neuTaskName))
+        if (string.IsNullOrWhiteSpace(neuTaskName))
         {
             placeholdertext = "errorMessage";
             return;
         }
 
-        tasks.Add(new Task { name = neuTaskName, isDone = false });
+        tasks.Add(new TodoItem { name = neuTaskName, isDone = false });
+        todoTasks++;
         placeholdertext = "weitere Aufgabe eingeben";
         neuTaskName = "";
         errorMessage = "";
     }
 
-
-    public async System.Threading.Tasks.Task OnTaskChecked(Task task, ChangeEventArgs e)
+    public async System.Threading.Tasks.Task OnTaskChecked(TodoItem task, ChangeEventArgs e)
     {
         bool isChecked = (bool)e.Value!;
         task.isDone = isChecked;
@@ -119,6 +122,7 @@ th:last-child {
         if (task.isDone)
         {
             await System.Threading.Tasks.Task.Delay(1000);
+            doneTasks++;
             tasks.Remove(task);
         }
     }
@@ -130,16 +134,25 @@ th:last-child {
             addTask();
         }
     }
-
-
-
-    protected override async Task OnInitializedAsync()
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
 {
-    var daten = await Http.GetFromJsonAsync<List<Task>>("todos.json");
+    var daten = await Http.GetFromJsonAsync<List<TodoItem>>("todos.json");
 
     if (daten != null)
     {
-        tasks = daten;
+        foreach (var data in daten)
+        {
+            if (!data.isDone)
+            {
+                tasks.Add(data);
+                todoTasks++ ; 
+            }
+            else
+            {
+                doneTasks++;
+            }
+        }
     }
 }
+    
 }
