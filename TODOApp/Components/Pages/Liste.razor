@@ -1,44 +1,60 @@
+@inject HttpClient Http
 
 
+<div class="seite">
+    <div class="todo-bereich">
+        <input placeholder="@placeholdertext"
+               @bind="neuTaskName"
+               @bind:event="oninput"
+               @onkeydown="handelEnterkey" />
 
-<input placeholder=@placeholdertext
-       @bind="neuTaskName"
-       @bind:event="oninput"
-       @onkeydown="handelEnterkey" />
-        
-<button   @onclick="addTask"  >weitere aufgabe eingeben</button>
-    
-<table>
-    <tr id="top-row">
-        <th class="einleitung">Aufgaben / TODOs</th>   
-        <th class="einleitung">Status</th>
-    </tr>
-    @foreach(var task in tasks)
-    {
-        <tr id="task-row">
-            <td>@task.name</td>
-            <td><input type="checkbox"
-                       checked="@task.isDone"
-                       @onchange="(e => OnTaskChecked(task , e))" 
-                /></td>
-        </tr>
-    }
-</table>
-<style> 
-/*table{
-    width: 33%;
-    margin: 2px;
-    border-collapse: collapse;
-    border: 1px solid black;
+        <button @onclick="addTask">weitere aufgabe eingeben</button>
+
+        <table>
+            <tr id="top-row">
+                <th class="einleitung">Aufgaben / TODOs</th>
+                <th class="einleitung">Status</th>
+            </tr>
+            @foreach (var task in tasks)
+            {
+                <tr id="task-row">
+                    <td>@task.name</td>
+                    <td>
+                        <input type="checkbox"
+                               checked="@task.isDone"
+                               @onchange="(e => OnTaskChecked(task, e))" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="wetter-bereich">
+        <Wetter />
+    </div>
+</div>
+
+<style>
+.seite {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
 }
-#top-row{
-    border: 1px solid black;
+
+.todo-bereich {
+    flex: 1;
 }
-.einleitung{
-    text-align: center;
-}*/
+
+.wetter-bereich {
+    min-width: 300px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 table {
-    width: 33%;
+    width: 100%;
     border-collapse: collapse;
     margin: 2px;
 }
@@ -62,11 +78,7 @@ th:last-child {
     text-align: center;
     width: 20%;
 }
-
-
-
 </style>
-
 
 
 @code {
@@ -77,7 +89,7 @@ th:last-child {
 
     public class Task
     {
-        public String name { get; set; }
+        public String name { get; set; } ="";
         public bool isDone { get; set; }
     }
 
@@ -119,4 +131,15 @@ th:last-child {
         }
     }
 
+
+
+    protected override async Task OnInitializedAsync()
+{
+    var daten = await Http.GetFromJsonAsync<List<Task>>("todos.json");
+
+    if (daten != null)
+    {
+        tasks = daten;
+    }
+}
 }

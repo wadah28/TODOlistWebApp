@@ -1,6 +1,5 @@
-@inject HttpClient Http
 
-<div>
+<div class="wetter">
     <button @onclick="loadtext">
         Lade Wetter runter!
     </button>
@@ -8,6 +7,17 @@
         das wetter heute ist ... :@wetter
     </p>
 </div>
+
+<style>
+    .wetter {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+</style>
 
 
 @code
