@@ -1,0 +1,12 @@
+[
+  { "name": "Blazor Grundlagen lernen", "isDone": false },
+  { "name": "Liste.razor fertig machen", "isDone": true },
+  { "name": "Wetter-Komponente testen", "isDone": false },
+  { "name": "Footer ganz unten platzieren", "isDone": true },
+  { "name": "HttpClient in Program.cs registrieren", "isDone": true },
+  { "name": "JSON-Datei aus wwwroot laden", "isDone": false },
+  { "name": "Todo per Enter-Taste hinzufügen", "isDone": true },
+  { "name": "Erledigte Aufgaben automatisch löschen", "isDone": false },
+  { "name": "CSS für Layout verbessern", "isDone": false },
+  { "name": "Projekt in VS Code starten", "isDone": true }
+]
